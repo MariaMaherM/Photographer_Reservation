@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "WelcomePG";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Welcome @Session["User_Name"].ToString()</h2>
+
+<p style="font-size:30px">
+    @Html.ActionLink("Show All Clients", "ShowClients", "Photographer")
+</p>
+
+<p style="font-size:30px">
+    @Html.ActionLink("Edite My Profile", "Edit", "Photographer")
+</p>

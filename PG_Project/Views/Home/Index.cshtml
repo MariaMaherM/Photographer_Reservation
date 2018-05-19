@@ -1,0 +1,32 @@
+﻿@model IEnumerable<PG_Project.Models.PG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol type="A" style="font-size:18px ; color :azure" >
+
+    <h2 style="color:aliceblue"> Here All Photographer</h2>
+
+    @foreach (var item in Model)
+    {
+
+        <li style="color:azure ; font-size:20px "> @Html.ActionLink(item.User_Name, "ShowSpecificPG", new { id = item.id })</li>
+
+    }
+
+
+
+</ol>
+
+<style>
+    .form-group {
+        color: black;
+        font-size: 20px;
+    }
+
+
+</style>
+
+
