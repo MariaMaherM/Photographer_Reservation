@@ -36,21 +36,10 @@
           <Property Name="Phone_Number" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
           <Property Name="admin_id" Type="int" />
-          <Property Name="CategoryName" Type="varchar" MaxLength="1" />
+          <Property Name="photo" Type="varbinary(max)" />
+          <Property Name="My_Summary" Type="text" />
         </EntityType>
-        <Association Name="FK__Client__pg_id__23BE4960">
-          <End Role="PG" Type="Self.PG" Multiplicity="0..1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PG">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="pg_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__PG__admin_id__184C96B4">
+        <Association Name="FK__PG__admin_id__61BB7BD9">
           <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
           <End Role="PG" Type="Self.PG" Multiplicity="*" />
           <ReferentialConstraint>
@@ -66,11 +55,7 @@
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PG" EntityType="Self.PG" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Client__pg_id__23BE4960" Association="Self.FK__Client__pg_id__23BE4960">
-            <End Role="PG" EntitySet="PG" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK__PG__admin_id__184C96B4" Association="Self.FK__PG__admin_id__184C96B4">
+          <AssociationSet Name="FK__PG__admin_id__61BB7BD9" Association="Self.FK__PG__admin_id__61BB7BD9">
             <End Role="Admin" EntitySet="Admin" />
             <End Role="PG" EntitySet="PG" />
           </AssociationSet>
@@ -87,7 +72,7 @@
           <Property Name="User_Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="PGs" Relationship="Self.FK__PG__admin_id__184C96B4" FromRole="Admin" ToRole="PG" />
+          <NavigationProperty Name="PGs" Relationship="masterModel.FK__PG__admin_id__61BB7BD9" FromRole="Admin" ToRole="PG" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -99,8 +84,16 @@
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="Phone_Number" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="pg_id" Type="Int32" />
-          <NavigationProperty Name="PG" Relationship="Self.FK__Client__pg_id__23BE4960" FromRole="Client" ToRole="PG" />
         </EntityType>
+        <EntityContainer Name="ProjectContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="PGs" EntityType="masterModel.PG" />
+          <AssociationSet Name="FK__PG__admin_id__61BB7BD9" Association="masterModel.FK__PG__admin_id__61BB7BD9">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="PG" EntitySet="PGs" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="PG">
           <Key>
             <PropertyRef Name="id" />
@@ -112,13 +105,13 @@
           <Property Name="Phone_Number" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="admin_id" Type="Int32" />
-          <NavigationProperty Name="Admin" Relationship="Self.FK__PG__admin_id__184C96B4" FromRole="PG" ToRole="Admin" />
-          <NavigationProperty Name="Clients" Relationship="Self.FK__Client__pg_id__23BE4960" FromRole="PG" ToRole="Client" />
-          <Property Name="CategoryName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Admin" Relationship="masterModel.FK__PG__admin_id__61BB7BD9" FromRole="PG" ToRole="Admin" />
+          <Property Name="My_Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK__PG__admin_id__184C96B4">
-          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
-          <End Role="PG" Type="Self.PG" Multiplicity="*" />
+        <Association Name="FK__PG__admin_id__61BB7BD9">
+          <End Type="masterModel.Admin" Role="Admin" Multiplicity="0..1" />
+          <End Type="masterModel.PG" Role="PG" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Admin">
               <PropertyRef Name="id" />
@@ -128,31 +121,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Client__pg_id__23BE4960">
-          <End Role="PG" Type="Self.PG" Multiplicity="0..1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PG">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="pg_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ProjectContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Admins" EntityType="Self.Admin" />
-          <EntitySet Name="Clients" EntityType="Self.Client" />
-          <EntitySet Name="PGs" EntityType="Self.PG" />
-          <AssociationSet Name="FK__PG__admin_id__184C96B4" Association="Self.FK__PG__admin_id__184C96B4">
-            <End Role="Admin" EntitySet="Admins" />
-            <End Role="PG" EntitySet="PGs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Client__pg_id__23BE4960" Association="Self.FK__Client__pg_id__23BE4960">
-            <End Role="PG" EntitySet="PGs" />
-            <End Role="Client" EntitySet="Clients" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -184,14 +152,15 @@
           <EntitySetMapping Name="PGs">
             <EntityTypeMapping TypeName="masterModel.PG">
               <MappingFragment StoreEntitySet="PG">
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="My_Summary" ColumnName="My_Summary" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
                 <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone_Number" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

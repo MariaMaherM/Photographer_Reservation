@@ -6,11 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="e2676903d04d4765bbbbb6ec75bdf522" Name="Diagram1">
         <EntityTypeShape EntityType="masterModel.Admin" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="masterModel.Client" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="masterModel.PG" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="masterModel.FK__PG__admin_id__184C96B4" ManuallyRouted="false" />
-        <AssociationConnector Association="masterModel.FK__Client__pg_id__23BE4960" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="masterModel.Client" Width="1.5" PointX="5.125" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="masterModel.PG" Width="1.5" PointX="3.125" PointY="1.5" />
+        <AssociationConnector Association="masterModel.FK__PG__admin_id__61BB7BD9" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

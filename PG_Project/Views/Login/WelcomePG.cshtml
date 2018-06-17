@@ -5,13 +5,35 @@
 }
 
 
+@{
+    ViewBag.id = Session["id"];
+  
+}
+
+
+
 
 <h2>Welcome @Session["User_Name"].ToString()</h2>
-
+<section>
 <p style="font-size:30px">
-    @Html.ActionLink("Show All Clients", "ShowClients", "Photographer")
+    @Html.ActionLink("Show All Clients", "ShowClients", new { id = ViewBag.id })
 </p>
 
 <p style="font-size:30px">
-    @Html.ActionLink("Edite My Profile", "Edit", "Photographer")
+    @Html.ActionLink("Edite My Profile", "EditPG", new { id = ViewBag.id })
 </p>
+
+</section>
+
+
+
+
+<style>
+     section {
+    
+    text-align: center;
+      font-style:italic;
+      font-size:x-large;
+    
+    }
+    </style>

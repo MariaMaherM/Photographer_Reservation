@@ -20,7 +20,5 @@ namespace PG_Project.Models
         public string Password { get; set; }
         public Nullable<decimal> Phone_Number { get; set; }
         public Nullable<int> pg_id { get; set; }
-    
-        public virtual PG PG { get; set; }
     }
 }

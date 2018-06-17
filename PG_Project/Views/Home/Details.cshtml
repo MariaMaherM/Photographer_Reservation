@@ -1,23 +1,23 @@
 ﻿@model PG_Project.Models.PG
 
 @{
-    ViewBag.Title = "";
+    ViewBag.Title =  "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2> @ViewBag.name Profile </h2>
 
-<div id="profile">
-
+<div id="profile" >
+    
     <hr />
     <dl class="dl-horizontal">
         <dt>
-
+            
 
         </dt>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User_Name)
+            @Html.DisplayNameFor(model => model.User_Name)                                                     
         </dt>
 
         <dd>
@@ -49,10 +49,10 @@
             @Html.DisplayFor(model => model.My_Summary)
 
         </div>
-
+        
     </dl>
 </div>
-<p style="color:black ; font-size:large">
+<p style="color:black ; font-size:large" >
     @Html.ActionLink("Back to List", "Index")
 </p>
 
@@ -62,21 +62,26 @@
         color: azure;
         position: center;
         padding-left: 30px;
-    }
 
+    }
     dl {
-        color: black;
+    color:black
+    
     }
 
 
     #summary {
-        /*float:right;*/
-        margin-bottom: 90px;
+      /*float:right;*/
+       margin-bottom:90px;    
+    
     }
 
     #profile {
-        text-align: center;
-        font-style: italic;
-        font-size: x-large;
+      text-align: center;
+      font-style:italic;
+      font-size:x-large;
+     
     }
+
+
 </style>

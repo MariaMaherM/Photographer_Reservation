@@ -14,12 +14,6 @@ namespace PG_Project.Models
     
     public partial class PG
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PG()
-        {
-            this.Clients = new HashSet<Client>();
-        }
-    
         public int id { get; set; }
         public string User_Name { get; set; }
         public string Email { get; set; }
@@ -27,12 +21,9 @@ namespace PG_Project.Models
         public Nullable<decimal> Phone_Number { get; set; }
         public string Status { get; set; }
         public Nullable<int> admin_id { get; set; }
-        public string CategoryName { get; set; }
-        /* [Display(Name="img")]
-           public HttpPostedFileBase CategoryName { get; set; }
-       */
+        public byte[] photo { get; set; }
+        public string My_Summary { get; set; }
+    
         public virtual Admin Admin { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Client> Clients { get; set; }
     }
 }

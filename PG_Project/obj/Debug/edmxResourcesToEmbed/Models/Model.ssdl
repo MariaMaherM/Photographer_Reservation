@@ -31,21 +31,10 @@
     <Property Name="Phone_Number" Type="numeric" Precision="18" Scale="0" />
     <Property Name="Status" Type="nchar" MaxLength="10" />
     <Property Name="admin_id" Type="int" />
-    <Property Name="CategoryName" Type="varchar" MaxLength="1" />
+    <Property Name="photo" Type="varbinary(max)" />
+    <Property Name="My_Summary" Type="text" />
   </EntityType>
-  <Association Name="FK__Client__pg_id__23BE4960">
-    <End Role="PG" Type="Self.PG" Multiplicity="0..1" />
-    <End Role="Client" Type="Self.Client" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PG">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Client">
-        <PropertyRef Name="pg_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__PG__admin_id__184C96B4">
+  <Association Name="FK__PG__admin_id__61BB7BD9">
     <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
     <End Role="PG" Type="Self.PG" Multiplicity="*" />
     <ReferentialConstraint>
@@ -61,11 +50,7 @@
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PG" EntityType="Self.PG" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Client__pg_id__23BE4960" Association="Self.FK__Client__pg_id__23BE4960">
-      <End Role="PG" EntitySet="PG" />
-      <End Role="Client" EntitySet="Client" />
-    </AssociationSet>
-    <AssociationSet Name="FK__PG__admin_id__184C96B4" Association="Self.FK__PG__admin_id__184C96B4">
+    <AssociationSet Name="FK__PG__admin_id__61BB7BD9" Association="Self.FK__PG__admin_id__61BB7BD9">
       <End Role="Admin" EntitySet="Admin" />
       <End Role="PG" EntitySet="PG" />
     </AssociationSet>

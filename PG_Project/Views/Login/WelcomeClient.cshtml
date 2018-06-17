@@ -1,15 +1,39 @@
-﻿
+﻿@model PG_Project.Controllers.LoginController
+
+
 @{
     ViewBag.Title = "WelcomeClient";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    ViewBag.id = Session["id"];
+    
+}
 
 
 
 <h2>Welcome @Session["User_Name"].ToString()</h2>
 
+<section>
 
 <p style="font-size:30px">
-    @Html.ActionLink("Edite My Profile", "Edit", "Client")
+   
+    @Html.ActionLink("Edite My Profile", "EditClient", new { id = ViewBag.id })
 </p>
+
+</section>
+
+
+<style>
+
+
+
+     section {
+    
+    text-align: center;
+      font-style:italic;
+      font-size:x-large;
+    
+    }
+    </style>

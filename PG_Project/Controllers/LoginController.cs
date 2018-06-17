@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PG_Project.Controllers;
+using System.Data.Entity;
 
 namespace PG_Project.Controllers
 {
@@ -19,7 +20,7 @@ namespace PG_Project.Controllers
             return View();
         }
 
-
+        public int punId;
 
 
      
@@ -76,6 +77,8 @@ namespace PG_Project.Controllers
                 {
                     Session["id"] = details.FirstOrDefault().id;
                     Session["User_Name"] = details.FirstOrDefault().User_Name;
+                    ViewBag.id = details.FirstOrDefault().id;
+                    punId= details.FirstOrDefault().id;
                     return RedirectToAction("WelcomeAdmin","Login");
 
                 }
@@ -83,17 +86,20 @@ namespace PG_Project.Controllers
                 {
                     Session["id"] = photographer.FirstOrDefault().id;
                     Session["User_Name"] = photographer.FirstOrDefault().User_Name;
+                    ViewBag.id = photographer.FirstOrDefault().id;
+
                     return RedirectToAction("WelcomePG","Login");
                 }
                 if (client.FirstOrDefault() != null)
                 {
                     Session["id"] = client.FirstOrDefault().id;
                     Session["User_Name"] = client.FirstOrDefault().User_Name;
+                    ViewBag.id = client.FirstOrDefault().id;
+
                     return RedirectToAction("WelcomeClient","Login");
 
                 }
             }
-
 
 
 
@@ -124,16 +130,93 @@ namespace PG_Project.Controllers
         }
 
 
+        // GET: Client/Edit/5
+        public ActionResult EditClient(int id)
+        {
+
+            Client cl = db.Clients.Find(id);
+            if (cl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cl);
+
+            //return View();
+        }
+
+        // POST: Admin/Edit/5
+        [HttpPost]
+        public ActionResult EditClient(Client cl)
+        {
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(cl).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Login", "Login");
+
+        }
 
 
 
 
 
+        public ActionResult EditPG(int id)
+        {
+
+            PG pg = db.PGs.Find(id);
+            if (pg == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pg);
+
+
+
+        }
+
+        // POST: Admin/Edit/5
+        [HttpPost]
+        public ActionResult EditPG(PG adm)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(adm).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Login", "Login");
+            }
+            catch
+            {
+                return View("Login", "Login");
+            }
+        }
 
 
 
 
+        [HttpGet]
+        public ActionResult ShowClients(int id)
+        {
 
+
+
+            //var details = (from userlist in db.PGs
+            //               select new
+            //               {
+            //                   userlist.id,
+            //                   userlist.User_Name 
+            //               }).ToList();
+            //var num = db.Clients.ToList().Where(c => c.pg_id == details.FirstOrDefault().id);
+            var num = db.Clients.ToList().Where(c => c.pg_id == id);
+
+            return View(num.ToList());
+        }
 
 
 

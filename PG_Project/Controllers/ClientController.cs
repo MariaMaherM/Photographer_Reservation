@@ -5,13 +5,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PG_Project.Controllers;
 
 namespace PG_Project.Controllers
 {
     public class ClientController : Controller
     {
         ProjectContext db = new ProjectContext();
-
+        LoginController log = new LoginController();
 
         // GET: Client
         public ActionResult Index()
@@ -53,19 +54,26 @@ namespace PG_Project.Controllers
                 return View();
             }
         }
-
+        
         // GET: Client/Edit/5
-        public ActionResult Edit()
+        public ActionResult Edit(int id )
         {
-            return View();
+
+            Client cl = db.Clients.Find(id);
+            if (cl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cl);
+
+            //return View();
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
         public ActionResult Edit(Client cl)
         {
-            try
-            {
+            
                 if (ModelState.IsValid)
                 {
                     db.Entry(cl).State = EntityState.Modified;
@@ -73,11 +81,7 @@ namespace PG_Project.Controllers
                 }
 
                 return RedirectToAction("WelcomeClient", "Login");
-            }
-            catch
-            {
-                return View("WelcomeClient", "Login");
-            }
+           
         }
 
         // GET: Client/Delete/5

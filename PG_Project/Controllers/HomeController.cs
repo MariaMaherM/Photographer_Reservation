@@ -9,6 +9,7 @@ using PG_Project.Controllers;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
+using System.IO;
 
 namespace PG_Project.Controllers
 {
@@ -18,89 +19,173 @@ namespace PG_Project.Controllers
         ProjectContext db = new ProjectContext();
 
 
-
         public ActionResult Index()
         {
-            return View(db.PGs.ToArray());
+            return View(db.PGs.ToList());
         }
+
+
+        public ActionResult Details(int id,string name  )
+        {
+
+            var pg = db.PGs.ToList().SingleOrDefault(c => c.id == id);
+            ViewBag.name = name;
+            return View(pg);
+        }
+
 
         public ActionResult RegisterPG()
         {
            
             return View();
         }
+        
+
 
 
         [HttpPost]
         public ActionResult RegisterPG(PG pg)
-        {
-          //  pg.CategoryName = "~content/PG_img/" + pg.CategoryName.FileName;
-           
+        { 
 
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.PGs.Add(pg);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Login", "Login");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            //pg.photo = new byte[File1.ContentLength]; // file1 to store image in binary formate  
+
+            //File1.InputStream.Read(pg.photo, 0, File1.ContentLength);
+
+            // pg.CategoryName = "~content/PG_img/" + pg.CategoryName.FileName;
 
 
+            // pg.CategoryName = new byte[image1.ContentLength];
 
+            //string fileName = Path.GetFileNameWithoutExtension(pg.file.FileName);
 
-        public ActionResult RegisterClient()
-        {
-          //  ViewData["NamePG"] = Enum.GetValues(typeof(PG)).Cast<PG>().Select(c => new SelectListItem { Text = c.ToString(), Value = c.ToString() });
-            Client client = new Client();
-            var pg = db.PGs.ToList();
-            PhotographerClient pc = new PhotographerClient()
-            {
-                Client = client,
-                photographers = pg
+            //string extension = Path.GetExtension(pg.file.FileName);
+            //fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            //pg.Status = "~/Image/" + fileName;
+            //fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+            //pg.file.SaveAs(fileName);
 
-            };
-
-            //var pg = db.PGs.ToList();
-            //PhotographerClient pc = new PhotographerClient
+            //var path = "";
+            //if (File1 != null)
             //{
-            //    photographers= pg
-            //};
+            //    if (File1.ContentLength > 0)
+            //    {
+            //        if (Path.GetExtension(File1.FileName).ToLower() == ".jpg"
+            //            || Path.GetExtension(File1.FileName).ToLower() == ".png"
+            //            || Path.GetExtension(File1.FileName).ToLower() == ".gif"
+            //            || Path.GetExtension(File1.FileName).ToLower() == ".jpeg")
+            //        {
+
+            //            path = Path.Combine(Server.MapPath("~/Image/"), File1.FileName);
+            //            File1.SaveAs(path);
+            //            ViewBag.UploadSuccess = true;
+            //        }
+            //    }
+
+            // pg.photo = "~/Image/";
+            ////}
 
 
-            var get = db.PGs.ToList();
-            SelectList list = new SelectList(get, "id", "User_Name");
-            ViewBag.pg = list;
+            if (ModelState.IsValid)
+            {
+                db.PGs.Add(pg);
+                db.SaveChanges();
+            }
+            //ModelState.Clear();
+            return RedirectToAction("Login", "Login");
 
-            return View(pc);
         }
 
 
+
+        public ActionResult RegClient()
+        {
+            return View();
+
+        }
 
         [HttpPost]
-        public ActionResult RegisterClient(PhotographerClient cl)
+        public ActionResult RegClient(Client cl)
         {
 
-            try
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db.Clients.Add(cl.Client);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("Login", "Login");
+                db.Clients.Add(cl);
+                db.SaveChanges();
             }
-            catch
-            {
-                return View();
-            }
+            //ModelState.Clear();
+            return RedirectToAction("Login", "Login");
+          
+
         }
+
+
+        //public ActionResult RegisterClient()
+        //{
+        //  //  ViewData["NamePG"] = Enum.GetValues(typeof(PG)).Cast<PG>().Select(c => new SelectListItem { Text = c.ToString(), Value = c.ToString() });
+        //    //Client client = new Client();
+        //    //var pg = db.PGs.ToList();
+
+        //    //PhotographerClient pc = new PhotographerClient()
+        //    //{
+        //    //    Client = client,
+        //    //    photographers = pg,
+               
+
+        //    //};
+
+        //    //var pg = db.PGs.ToList();
+        //    //PhotographerClient pc = new PhotographerClient
+        //    //{
+        //    //    photographers= pg
+        //    //};
+
+
+
+        //    //PG p = new PG();
+        //    //ViewBag.Pg = new SelectList(db.PGs, "id", "User_Name").OrderBy(a=>a.Text);
+        //    //var get = db.PGs.ToList();
+        //    //List<SelectListItem> mySkills = new List<SelectListItem>(get, "id", "User_Name");
+
+
+
+
+
+        //    //var get = db.PGs.ToList();
+        //    //SelectList list = new SelectList(get, "id", "User_Name");
+        //    //ViewBag.pg = list;
+
+        //    return View();
+        //}
+
+
+
+        //[HttpPost]
+        //public ActionResult RegisterClient(Client cl)
+        //{
+
+        //    //try
+        //    //{
+        //    //    if (ModelState.IsValid)
+        //    //    {
+        //    //        db.Clients.Add(cl.Client);
+        //    //        db.SaveChanges();
+        //    //    }
+        //    //    return RedirectToAction("Login", "Login");
+        //    //}
+        //    //catch
+        //    //{
+        //    //    return View();
+        //    //}
+
+
+        //    if (ModelState.IsValid)
+        //      {
+        //          db.Clients.Add(cl);
+        //          db.SaveChanges();
+        //        }
+        //       return RedirectToAction("Login", "Login");
+        //}
 
 
 
@@ -112,6 +197,7 @@ namespace PG_Project.Controllers
             var num = db.PGs.ToList().SingleOrDefault(c => c.id == id);
 
             return View(num);
+
 
         }
 

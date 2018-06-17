@@ -291,27 +291,29 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\RegisterPG.cshtml" />
     <Content Include="Views\Photographer\PgProfile.cshtml" />
     <Content Include="Views\Client\ClientProfile.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\WelcomeAdmin.cshtml" />
     <Content Include="Views\Login\WelcomePG.cshtml" />
     <Content Include="Views\Login\WelcomeClient.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\ShowPG.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\Details.cshtml" />
-    <Content Include="Views\Home\RegisterClient.cshtml" />
     <Content Include="Views\Home\ShowSpecificPG.cshtml" />
     <Content Include="Views\Photographer\Delete.cshtml" />
-    <Content Include="Views\Photographer\ShowClients.cshtml" />
-    <Content Include="Views\Photographer\Edit.cshtml" />
-    <Content Include="Views\Client\Edit.cshtml" />
+    <Content Include="Views\Login\EditClient.cshtml" />
+    <Content Include="Views\Login\EditPG.cshtml" />
+    <Content Include="Views\Login\ShowClients.cshtml" />
+    <Content Include="Views\Home\RegisterPG.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\RegClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

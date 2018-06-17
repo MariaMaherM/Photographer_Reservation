@@ -35,22 +35,9 @@ namespace PG_Project.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult ShowClients()
-        {
+       
 
-          
 
-            var details = (from userlist in db.PGs
-                           select new
-                           {
-                               userlist.id,
-                               userlist.User_Name 
-                           }).ToList();
-            var num = db.Clients.ToList().Where(c => c.pg_id == details.FirstOrDefault().id);
-            
-            return View(num.ToList());
-        }
 
 
         // GET: Photographer/Create
@@ -80,36 +67,7 @@ namespace PG_Project.Controllers
 
 
 
-        public ActionResult Edit()
-        {
-
-
-            
-            return View();
-
-
-
-        }
-
-        // POST: Admin/Edit/5
-        [HttpPost]
-        public ActionResult Edit(PG adm)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    db.Entry(adm).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-
-                return RedirectToAction("WelcomePG", "Login");
-            }
-            catch
-            {
-                return View("WelcomeAdmin", "Login");
-            }
-        }
+       
 
 
 

@@ -164,39 +164,50 @@ namespace PG_Project.Controllers
 
 
 
-        public JsonResult SendEmailToUser()
+        public JsonResult SendEmailToUser(string y)
         {
-            bool result = true;
-
-            result = SendEmail("christinemagdy07@gmail.com", "acceptance", "<p>hi<br>thats my acceptance mail for you</p>");
+            bool result = false;
+            //da el mota3'air
+            result = SendEmail(y, "acceptance", "<p>hi<br>thats my acceptance mail for you</p>");
 
             return Json(result, JsonRequestBehavior.AllowGet);
 
         }
 
-        public bool SendEmail(string ToEmail, string Subject, String EmailBody)
+        public bool SendEmail(string ToEmail, string Subject, string EmailBody)
         {
-           
-                SmtpClient SmtpServer = new SmtpClient();
-                SmtpServer.Host = "smtp.gmail.com";
-                MailMessage mail = new MailMessage("mariamaher86@gmail.com", ToEmail, Subject, EmailBody);
-
-                SmtpServer.Port = 587;
-                SmtpServer.UseDefaultCredentials = true;
-                SmtpServer.Credentials = new NetworkCredential("mariamaher86@gmail.com", "01273395379");
-                SmtpServer.EnableSsl = true;
-                mail.IsBodyHtml = true;
-                mail.BodyEncoding = UTF8Encoding.UTF8;
-                SmtpServer.Send(mail);
-
+            try
+            {
+                string SenderEmail = System.Configuration.ConfigurationManager.AppSettings["mariamaher86 @gmail.com"].ToString();
+                string SenderPass = System.Configuration.ConfigurationManager.AppSettings[""].ToString();
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                client.EnableSsl = true;
+                client.Timeout = 100000;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(SenderEmail, SenderPass);
+                MailMessage msg = new MailMessage(SenderEmail, ToEmail, Subject, EmailBody);
+                msg.IsBodyHtml = true;
+                msg.BodyEncoding = UTF8Encoding.UTF8;
+                client.Send(msg);
                 return true;
+            }
 
-            
+            catch (Exception Ex)
+            {
+                return false;
+            }
 
-          
         }
-
-
-
     }
 }
+
+
+
+
+
+
+
+
+
+

@@ -8,7 +8,7 @@
     <Property Name="User_Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="PGs" Relationship="Self.FK__PG__admin_id__184C96B4" FromRole="Admin" ToRole="PG" />
+    <NavigationProperty Name="PGs" Relationship="masterModel.FK__PG__admin_id__61BB7BD9" FromRole="Admin" ToRole="PG" />
   </EntityType>
   <EntityType Name="Client">
     <Key>
@@ -20,8 +20,16 @@
     <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
     <Property Name="Phone_Number" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="pg_id" Type="Int32" />
-    <NavigationProperty Name="PG" Relationship="Self.FK__Client__pg_id__23BE4960" FromRole="Client" ToRole="PG" />
   </EntityType>
+  <EntityContainer Name="ProjectContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Clients" EntityType="Self.Client" />
+    <EntitySet Name="PGs" EntityType="masterModel.PG" />
+    <AssociationSet Name="FK__PG__admin_id__61BB7BD9" Association="masterModel.FK__PG__admin_id__61BB7BD9">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="PG" EntitySet="PGs" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="PG">
     <Key>
       <PropertyRef Name="id" />
@@ -33,13 +41,13 @@
     <Property Name="Phone_Number" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="admin_id" Type="Int32" />
-    <NavigationProperty Name="Admin" Relationship="Self.FK__PG__admin_id__184C96B4" FromRole="PG" ToRole="Admin" />
-    <NavigationProperty Name="Clients" Relationship="Self.FK__Client__pg_id__23BE4960" FromRole="PG" ToRole="Client" />
-    <Property Name="CategoryName" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Admin" Relationship="masterModel.FK__PG__admin_id__61BB7BD9" FromRole="PG" ToRole="Admin" />
+    <Property Name="My_Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
-  <Association Name="FK__PG__admin_id__184C96B4">
-    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
-    <End Role="PG" Type="Self.PG" Multiplicity="*" />
+  <Association Name="FK__PG__admin_id__61BB7BD9">
+    <End Type="masterModel.Admin" Role="Admin" Multiplicity="0..1" />
+    <End Type="masterModel.PG" Role="PG" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Admin">
         <PropertyRef Name="id" />
@@ -49,29 +57,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Client__pg_id__23BE4960">
-    <End Role="PG" Type="Self.PG" Multiplicity="0..1" />
-    <End Role="Client" Type="Self.Client" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PG">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Client">
-        <PropertyRef Name="pg_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="ProjectContext" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Admins" EntityType="Self.Admin" />
-    <EntitySet Name="Clients" EntityType="Self.Client" />
-    <EntitySet Name="PGs" EntityType="Self.PG" />
-    <AssociationSet Name="FK__PG__admin_id__184C96B4" Association="Self.FK__PG__admin_id__184C96B4">
-      <End Role="Admin" EntitySet="Admins" />
-      <End Role="PG" EntitySet="PGs" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Client__pg_id__23BE4960" Association="Self.FK__Client__pg_id__23BE4960">
-      <End Role="PG" EntitySet="PGs" />
-      <End Role="Client" EntitySet="Clients" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

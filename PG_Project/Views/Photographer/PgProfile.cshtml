@@ -27,12 +27,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Admin.User_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
+        
         <th></th>
     </tr>
 
@@ -53,12 +48,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Admin.User_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
+        
+        
         <td>
           @* @Html.ActionLink("Edit", "Edit", new { id=item.id }) |*@
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
